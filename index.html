@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ouma, Nonna &amp; Teta — one table, three kitchens</title>
+<meta name="description" content="A family eatery where three grandmothers cook: Durban and the Cape, the Levant and the Greek islands, and Naples. Build your own tasting table.">
+<meta name="color-scheme" content="light dark">
+
+<link rel="icon" href="images/favicon.ico" sizes="32x32">
+<link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<!-- Social / DEV post cover. Replace the two URLs below with absolute ones
+     (https://your-domain/images/cover-og.jpg) when you deploy — most scrapers
+     will not resolve a relative og:image. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ouma, Nonna &amp; Teta — one table, three kitchens">
+<meta property="og:description" content="A family eatery where three grandmothers cook: Durban and the Cape, the Levant and the islands, and Naples. Build your own tasting table.">
+<meta property="og:image" content="images/cover-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A wooden table laid with dishes from three kitchens, headed Ouma, Teta and Nonna.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="images/cover-og.jpg">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/dishes.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<a class="skip-link" href="#menu">Skip to the menu</a>
+
+<header class="site-header">
+  <a class="brand" href="#top">
+    <span class="brand__mark" aria-hidden="true"></span>
+    <span class="brand__name">Ouma, Nonna &amp; Teta</span>
+  </a>
+  <p class="brand__tag">One table, three kitchens</p>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="hero__copy">
+      <h1 class="hero__title">Comfort is<br>an inherited recipe.</h1>
+      <p class="hero__lede">
+        Three grandmothers, three kitchens, one long table. Ouma cooks the food of Durban and
+        the Cape. Teta cooks the Levant and the islands. Nonna cooks Naples. Nobody here has
+        ever agreed on which one is best, and that is the whole point.
+      </p>
+      <p class="hero__cta">
+        <a class="button button--primary" href="#menu">Build your table</a>
+        <a class="button" href="#story">Read the story</a>
+      </p>
+    </div>
+    <figure class="hero__art">
+      <img class="hero__cover"
+           src="images/cover-1200.webp"
+           srcset="images/cover-480.webp 480w, images/cover-640.webp 640w,
+                   images/cover-800.webp 800w, images/cover-1200.webp 1200w"
+           sizes="(min-width: 56rem) 42vw, 92vw"
+           width="1200" height="800"
+           fetchpriority="high" decoding="async"
+           alt="A long wooden table laid end to end with food from three kitchens: a bowl of yellow rice, samoosas and a curry-filled loaf under the heading Ouma; hummus, falafel and stuffed vine leaves under Teta; a margherita pizza, spaghetti and caprese under Nonna.">
+      <figcaption class="hero__caption">Everything, at once, in the middle. That is the whole idea.</figcaption>
+    </figure>
+  </section>
+
+  <section class="story" id="story">
+    <h2 class="story__title">Three kitchens</h2>
+    <ul class="story__list">
+      <li class="story__card story__card--ouma">
+        <span class="dish dish--bunny-chow" aria-hidden="true">
+          <span class="dish__steam"><i></i><i></i><i></i></span>
+          <span class="dish__vessel"></span><span class="dish__base"></span>
+          <span class="dish__sauce"></span><span class="dish__accent"></span>
+          <span class="dish__accent2"></span><span class="dish__garnish"></span>
+        </span>
+        <h3>Ouma</h3>
+        <p>Durban curry and Cape spice. Bread as a bowl, mielie meal as a bed, and a bay leaf
+           on top of everything baked. Feeds nine when six were expected.</p>
+      </li>
+      <li class="story__card story__card--teta">
+        <span class="dish dish--shakshuka" aria-hidden="true">
+          <span class="dish__steam"><i></i><i></i><i></i></span>
+          <span class="dish__vessel"></span><span class="dish__base"></span>
+          <span class="dish__sauce"></span><span class="dish__accent"></span>
+          <span class="dish__accent2"></span><span class="dish__garnish"></span>
+        </span>
+        <h3>Teta</h3>
+        <p>The Levant and the islands. Everything arrives at once, in small dishes, and the
+           bread is not optional. Olive oil is a seasoning, not a cooking fat.</p>
+      </li>
+      <li class="story__card story__card--nonna">
+        <span class="dish dish--cacio-e-pepe" aria-hidden="true">
+          <span class="dish__steam"><i></i><i></i><i></i></span>
+          <span class="dish__vessel"></span><span class="dish__base"></span>
+          <span class="dish__sauce"></span><span class="dish__accent"></span>
+          <span class="dish__accent2"></span><span class="dish__garnish"></span>
+        </span>
+        <h3>Nonna</h3>
+        <p>Naples by way of a very small kitchen. Four ingredients, done properly, and a
+           standing argument about how long the ragù has been on.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="menu" id="menu">
+    <div class="menu__head">
+      <h2 class="menu__title">The menu</h2>
+      <p class="menu__lede">Pick what you want on the table. Everything is served family style,
+         in the middle, for everyone.</p>
+    </div>
+
+    <div class="filters" role="group" aria-label="Filter the menu">
+      <button type="button" class="chip" data-filter="all" aria-pressed="true">Everything</button>
+      <button type="button" class="chip chip--ouma" data-filter="ouma" aria-pressed="false">Ouma</button>
+      <button type="button" class="chip chip--teta" data-filter="teta" aria-pressed="false">Teta</button>
+      <button type="button" class="chip chip--nonna" data-filter="nonna" aria-pressed="false">Nonna</button>
+      <button type="button" class="chip" data-filter="vegetarian" aria-pressed="false">Vegetarian</button>
+      <button type="button" class="chip" data-filter="halaal" aria-pressed="false">Halaal</button>
+    </div>
+    <p class="filters__status" data-filter-status role="status">Showing all 12 dishes.</p>
+
+    <form class="menu__form" id="menu-form">
+
+      <fieldset class="course" data-kitchen="ouma">
+        <legend class="course__legend">Ouma&rsquo;s kitchen<span> Durban &amp; the Cape</span></legend>
+        <ul class="menu__grid" role="list">
+
+          <li class="card" data-dish="bunny-chow" data-kitchen="ouma" data-price="128" data-tags="halaal">
+            <input class="card__input" type="checkbox" id="d-bunny-chow" name="dish" value="Bunny chow"
+                   aria-describedby="x-bunny-chow">
+            <label class="card__label" for="d-bunny-chow">
+              <span class="card__art">
+                <span class="dish dish--bunny-chow" aria-hidden="true">
+                  <span class="dish__steam"><i></i><i></i><i></i></span>
+                  <span class="dish__vessel"></span><span class="dish__base"></span>
+                  <span class="dish__sauce"></span><span class="dish__accent"></span>
+                  <span class="dish__accent2"></span><span class="dish__garnish"></span>
+                </span>
+              </span>
+              <span class="card__name">Bunny chow</span>
+              <span class="card__price">R128</span>
+            </label>
+            <p class="card__desc" id="x-bunny-chow">
+              A quarter loaf hollowed out and filled with mutton curry. The bread you dig out
+              goes on top. Durban, 1940s, invented for people who needed lunch they could carry.
+              <span class="tags"><span class="tag">Halaal</span></span>
+            </p>
+          </li>
+
+          <li class="card" data-dish="pap-chakalaka" data-kitchen="ouma" data-price="112" data-tags="">
+            <input class="card__input" type="checkbox" id="d-pap-chakalaka" name="dish" value="Pap, chakalaka &amp; boerewors"
+                   aria-describedby="x-pap-chakalaka">
+            <label class="card__label" for="d-pap-chakalaka">
+              <span class="card__art">
+                <span class="dish dish--pap-chakalaka" aria-hidden="true">
+                  <span class="dish__steam"><i></i><i></i><i></i></span>
+                  <span class="dish__vessel"></span><span class="dish__base"></span>
+                  <span class="dish__sauce"></span><span class="dish__accent"></span>
+                  <span class="dish__accent2"></span><span class="dish__garnish"></span>
+                </span>
+              </span>
+              <span class="card__name">Pap, chakalaka &amp; wors</span>
+              <span class="card__price">R112</span>
+            </label>
+            <p class="card__desc" id="x-pap-chakalaka">
+              Stiff white maize meal, a hot bean-and-pepper relish, and a coil of farm sausage
+              off the fire. The plate everyone at a braai builds for themselves.
+            </p>
+          </li>
+
+          <li class="card" data-dish="bobotie" data-kitchen="ouma" data-price="139" data-tags="">
+            <input class="card__input" type="checkbox" id="d-bobotie" name="dish" value="Bobotie"
+                   aria-describedby="x-bobotie">
+            <label class="card__label" for="d-bobotie">
+              <span class="card__art">
+                <span class="dish dish--bobotie" aria-hidden="true">
+                  <span class="dish__steam"><i></i><i></i><i></i></span>
+                  <span class="dish__vessel"></span><span class="dish__base"></span>
+                  <span class="dish__sauce"></span><span class="dish__accent"></span>
+                  <span class="dish__accent2"></span><span class="dish__garnish"></span>
+                </span>
+              </span>
+              <span class="card__name">Bobotie</span>
+              <span class="card__price">R139</span>
+            </label>
+            <p class="card__desc" id="x-bobotie">
+              Curried mince baked under a set egg custard, sweetened with fruit, with bay leaves
+              standing up out of the top. Cape Malay cooking &mdash; itself already three cuisines deep.
+            </p>
+          </li>
+
+          <li class="card" data-dish="malva" data-kitchen="ouma" data-price="76" data-tags="vegetarian">
+            <input class="card__input" type="checkbox" id="d-malva" name="dish" value="Malva pudding"
+                   aria-describedby="x-malva">
+            <label class="card__label" for="d-malva">
+              <span class="card__art">
+                <span class="dish dish--malva" aria-hidden="true">
+                  <span class="dish__steam"><i></i><i></i><i></i></span>
+                  <span class="dish__vessel"></span><span class="dish__base"></span>
+                  <span class="dish__sauce"></span><span class="dish__accent"></span>
+                  <span class="dish__accent2"></span><span class="dish__garnish"></span>
+                </span>
+              </span>
+              <span class="card__name">Malva pudding</span>
+              <span class="card__price">R76</span>
+            </label>
+            <p class="card__desc" id="x-malva">
+              Apricot jam sponge, still hot, drowned in cream the moment it leaves the oven.
+              Served with custard because Ouma does not accept the question.
+              <span class="tags"><span class="tag">Vegetarian</span></span>
+            </p>
+          </li>
+
+        </ul>
+      </fieldset>
+
+      <fieldset class="course" data-kitchen="teta">
+        <legend class="course__legend">Teta&rsquo;s kitchen<span> the Levant &amp; the islands</span></legend>
+        <ul class="menu__grid" role="list">
+
+          <li class="card" data-dish="shakshuka" data-kitchen="teta" data-price="104" data-tags="vegetarian halaal">
+            <input class="card__input" type="checkbox" id="d-shakshuka" name="dish" value="Shakshuka"
+                   aria-describedby="x-shakshuka">
+            <label class="card__label" for="d-shakshuka">
+              <span class="card__art">
+                <span class="dish dish--shakshuka" aria-hidden="true">
+                  <span class="dish__steam"><i></i><i></i><i></i></span>
+                  <span class="dish__vessel"></span><span class="dish__base"></span>
+                  <span class="dish__sauce"></span><span class="dish__accent"></span>
+                  <span class="dish__accent2"></span><span class="dish__garnish"></span>
+                </span>
+              </span>
+              <span class="card__name">Shakshuka</span>
+              <span class="card__price">R104</span>
+            </label>
+            <p class="card__desc" id="x-shakshuka">
+              Eggs poached in a pan of tomato, pepper and cumin, brought to the table in the pan
+              it was cooked in. Bread, not cutlery.
+              <span class="tags"><span class="tag">Vegetarian</span><span class="tag">Halaal</span></span>
+            </p>
+          </li>
+
+          <li class="card" data-dish="moussaka" data-kitchen="teta" data-price="147" data-tags="">
+            <input class="card__input" type="checkbox" id="d-moussaka" name="dish" value="Moussaka"
+                   aria-describedby="x-moussaka">
+            <label class="card__label" for="d-moussaka">
+              <span class="card__art">
+                <span class="dish dish--moussaka" aria-hidden="true">
+                  <span class="dish__steam"><i></i><i></i><i></i></span>
+                  <span class="dish__vessel"></span><span class="dish__base"></span>
+                  <span class="dish__sauce"></span><span class="dish__accent"></span>
+                  <span class="dish__accent2"></span><span class="dish__garnish"></span>
+                </span>
+              </span>
+              <span class="card__name">Moussaka</span>
+              <span class="card__price">R147</span>
+            </label>
+            <p class="card__desc" id="x-moussaka">
+              Aubergine, lamb and cinnamon under a lid of béchamel, browned hard at the edges.
+              Cut it too early and it collapses; everyone cuts it too early.
+            </p>
+          </li>
+
+          <li class="card" data-dish="mezze" data-kitchen="teta" data-price="96" data-tags="vegetarian halaal">
+            <input class="card__input" type="checkbox" id="d-mezze" name="dish" value="Hummus &amp; grilled halloumi"
+                   aria-describedby="x-mezze">
+            <label class="card__label" for="d-mezze">
+              <span class="card__art">
+                <span class="dish dish--mezze" aria-hidden="true">
+                  <span class="dish__steam"><i></i><i></i><i></i></span>
+                  <span class="dish__vessel"></span><span class="dish__base"></span>
+                  <span class="dish__sauce"></span><span class="dish__accent"></span>
+                  <span class="dish__accent2"></span><span class="dish__garnish"></span>
+                </span>
+              </span>
+              <span class="card__name">Hummus &amp; halloumi</span>
+              <span class="card__price">R96</span>
+            </label>
+            <p class="card__desc" id="x-mezze">
+              A wide swirl of hummus with a well of olive oil in the middle, paprika across it,
+              and halloumi off the griddle while it still squeaks.
+              <span class="tags"><span class="tag">Vegetarian</span><span class="tag">Halaal</span></span>
+            </p>
+          </li>
+
+          <li class="card" data-dish="baklava" data-kitchen="teta" data-price="68" data-tags="vegetarian halaal">
+            <input class="card__input" type="checkbox" id="d-baklava" name="dish" value="Baklava"
+                   aria-describedby="x-baklava">
+            <label class="card__label" for="d-baklava">
+              <span class="card__art">
+                <span class="dish dish--baklava" aria-hidden="true">
+                  <span class="dish__steam"><i></i><i></i><i></i></span>
+                  <span class="dish__vessel"></span><span class="dish__base"></span>
+                  <span class="dish__sauce"></span><span class="dish__accent"></span>
+                  <span class="dish__accent2"></span><span class="dish__garnish"></span>
+                </span>
+              </span>
+              <span class="card__name">Baklava</span>
+              <span class="card__price">R68</span>
+            </label>
+            <p class="card__desc" id="x-baklava">
+              Forty layers, pistachio, and enough syrup that the plate needs wiping afterwards.
+              Cut into diamonds, never squares.
+              <span class="tags"><span class="tag">Vegetarian</span><span class="tag">Halaal</span></span>
+            </p>
+          </li>
+
+        </ul>
+      </fieldset>
+
+      <fieldset class="course" data-kitchen="nonna">
+        <legend class="course__legend">Nonna&rsquo;s kitchen<span> Naples</span></legend>
+        <ul class="menu__grid" role="list">
+
+          <li class="card" data-dish="cacio-e-pepe" data-kitchen="nonna" data-price="118" data-tags="vegetarian">
+            <input class="card__input" type="checkbox" id="d-cacio-e-pepe" name="dish" value="Cacio e pepe"
+                   aria-describedby="x-cacio-e-pepe">
+            <label class="card__label" for="d-cacio-e-pepe">
+              <span class="card__art">
+                <span class="dish dish--cacio-e-pepe" aria-hidden="true">
+                  <span class="dish__steam"><i></i><i></i><i></i></span>
+                  <span class="dish__vessel"></span><span class="dish__base"></span>
+                  <span class="dish__sauce"></span><span class="dish__accent"></span>
+                  <span class="dish__accent2"></span><span class="dish__garnish"></span>
+                </span>
+              </span>
+              <span class="card__name">Cacio e pepe</span>
+              <span class="card__price">R118</span>
+            </label>
+            <p class="card__desc" id="x-cacio-e-pepe">
+              Pasta, pecorino, black pepper, pasta water. Four things. The entire dish is
+              temperature control and nerve.
+              <span class="tags"><span class="tag">Vegetarian</span></span>
+            </p>
+          </li>
+
+          <li class="card" data-dish="lasagne" data-kitchen="nonna" data-price="152" data-tags="">
+            <input class="card__input" type="checkbox" id="d-lasagne" name="dish" value="Lasagne al forno"
+                   aria-describedby="x-lasagne">
+            <label class="card__label" for="d-lasagne">
+              <span class="card__art">
+                <span class="dish dish--lasagne" aria-hidden="true">
+                  <span class="dish__steam"><i></i><i></i><i></i></span>
+                  <span class="dish__vessel"></span><span class="dish__base"></span>
+                  <span class="dish__sauce"></span><span class="dish__accent"></span>
+                  <span class="dish__accent2"></span><span class="dish__garnish"></span>
+                </span>
+              </span>
+              <span class="card__name">Lasagne al forno</span>
+              <span class="card__price">R152</span>
+            </label>
+            <p class="card__desc" id="x-lasagne">
+              Ragù that started on Saturday morning, béchamel, and a corner piece that people
+              are prepared to fall out over.
+            </p>
+          </li>
+
+          <li class="card" data-dish="risotto" data-kitchen="nonna" data-price="134" data-tags="vegetarian">
+            <input class="card__input" type="checkbox" id="d-risotto" name="dish" value="Risotto alla milanese"
+                   aria-describedby="x-risotto">
+            <label class="card__label" for="d-risotto">
+              <span class="card__art">
+                <span class="dish dish--risotto" aria-hidden="true">
+                  <span class="dish__steam"><i></i><i></i><i></i></span>
+                  <span class="dish__vessel"></span><span class="dish__base"></span>
+                  <span class="dish__sauce"></span><span class="dish__accent"></span>
+                  <span class="dish__accent2"></span><span class="dish__garnish"></span>
+                </span>
+              </span>
+              <span class="card__name">Risotto alla milanese</span>
+              <span class="card__price">R134</span>
+            </label>
+            <p class="card__desc" id="x-risotto">
+              Saffron, butter, and twenty minutes of not walking away from the pan. Loose enough
+              to move when you tap the plate.
+              <span class="tags"><span class="tag">Vegetarian</span></span>
+            </p>
+          </li>
+
+          <li class="card" data-dish="tiramisu" data-kitchen="nonna" data-price="82" data-tags="vegetarian">
+            <input class="card__input" type="checkbox" id="d-tiramisu" name="dish" value="Tiramisù"
+                   aria-describedby="x-tiramisu">
+            <label class="card__label" for="d-tiramisu">
+              <span class="card__art">
+                <span class="dish dish--tiramisu" aria-hidden="true">
+                  <span class="dish__steam"><i></i><i></i><i></i></span>
+                  <span class="dish__vessel"></span><span class="dish__base"></span>
+                  <span class="dish__sauce"></span><span class="dish__accent"></span>
+                  <span class="dish__accent2"></span><span class="dish__garnish"></span>
+                </span>
+              </span>
+              <span class="card__name">Tiramis&ugrave;</span>
+              <span class="card__price">R82</span>
+            </label>
+            <p class="card__desc" id="x-tiramisu">
+              Savoiardi soaked exactly as long as they should be, mascarpone, and cocoa dusted
+              over the top at the last second so it stays matte.
+              <span class="tags"><span class="tag">Vegetarian</span></span>
+            </p>
+          </li>
+
+        </ul>
+      </fieldset>
+    </form>
+  </section>
+
+  <aside class="plate" aria-labelledby="plate-title">
+    <h2 class="plate__title" id="plate-title">Your table</h2>
+
+    <div class="plate__stage">
+      <canvas class="plate__canvas" data-steam width="480" height="360" aria-hidden="true"></canvas>
+      <div class="plate__table" data-plate-stage aria-hidden="true"></div>
+      <p class="plate__empty" data-plate-empty>Nothing on the table yet.</p>
+    </div>
+
+    <ul class="plate__list" data-plate-list role="list"></ul>
+
+    <p class="plate__total">
+      <span>Total</span>
+      <strong data-plate-total>R0</strong>
+    </p>
+
+    <p class="plate__actions">
+      <button type="button" class="button button--primary" data-plate-book>Book this table</button>
+      <button type="button" class="button" data-plate-clear>Clear</button>
+    </p>
+
+    <p class="plate__note" data-plate-note hidden></p>
+
+    <p class="visually-hidden" role="status" aria-live="polite" data-live></p>
+  </aside>
+
+</main>
+
+<footer class="site-footer">
+  <p><strong>Ouma, Nonna &amp; Teta</strong> &middot; 14 Long Street, Cape Town &middot; Tuesday to Sunday, from 17:00</p>
+  <p class="site-footer__note">A fictional restaurant built for the DEV Frontend Challenge: Comfort Food Edition.
+     Every dish below the fold is drawn in CSS &mdash; no sprites, no icon fonts. The cover
+     illustration at the top is the only image on the site.</p>
+</footer>
+
+<!-- Deferred classic scripts, in order. Not ES modules: a module is fetched,
+     and fetching from a file:// page is blocked by CORS, which would leave
+     this site inert for anyone who just opens index.html. -->
+<script defer src="js/menu.js"></script>
+<script defer src="js/effects.js"></script>
+<script defer src="js/plate.js"></script>
+<script defer src="js/main.js"></script>
+</body>
+</html>

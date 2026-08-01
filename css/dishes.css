@@ -1,0 +1,500 @@
+/* ============================================================
+   THE DISH SYSTEM
+   ------------------------------------------------------------
+   Every dish on this site is the same six elements:
+
+     .dish__vessel  .dish__base  .dish__sauce
+     .dish__accent  .dish__accent2  .dish__garnish
+
+   A dish modifier (.dish--shakshuka) never adds geometry of its
+   own. It only re-points custom properties — colour, clip-path,
+   background, rotation — and the shared elements retype
+   themselves into a different dish.
+
+   Everything inside a dish is sized in `em`, so the whole
+   illustration scales from one property: `font-size`. That is
+   what makes the same markup work at hero size, at card size,
+   and at thumbnail size on the table.
+   ============================================================ */
+
+.dish {
+  /* ---- the knobs ----
+     One property drives the entire illustration, and it is fluid,
+     so a dish shrinks with its container instead of overflowing it. */
+  --d-size: clamp(5.5rem, 17vw, 8.5rem);
+
+  --d-vessel:   #efe7d8;
+  --d-vessel-2: #d6c9b1;
+  --d-vessel-shape: circle(47% at 50% 52%);
+  --d-vessel-bg:
+      radial-gradient(ellipse 62% 46% at 46% 36%, var(--d-vessel-2), transparent 72%),
+      linear-gradient(158deg, var(--d-vessel), color-mix(in oklab, var(--d-vessel) 72%, #000));
+
+  --d-base:   #d3a05c;
+  --d-base-2: #ab7330;
+  --d-base-shape: ellipse(33% 25% at 50% 54%);
+  --d-base-bg: radial-gradient(circle at 40% 34%, var(--d-base), var(--d-base-2) 74%);
+
+  --d-sauce:   transparent;
+  --d-sauce-2: transparent;
+  --d-sauce-shape: ellipse(21% 15% at 50% 50%);
+  --d-sauce-bg: radial-gradient(circle at 44% 38%, var(--d-sauce), var(--d-sauce-2) 78%);
+  --d-sauce-tf: none;
+
+  --d-accent:   transparent;
+  --d-accent-shape: circle(0 at 50% 50%);
+  --d-accent-bg: linear-gradient(160deg, var(--d-accent), color-mix(in oklab, var(--d-accent) 74%, #000));
+  --d-accent-tf: none;
+
+  --d-accent2:  transparent;
+  --d-accent2-shape: circle(0 at 50% 50%);
+  --d-accent2-bg: linear-gradient(160deg, var(--d-accent2), color-mix(in oklab, var(--d-accent2) 74%, #000));
+  --d-accent2-tf: none;
+
+  --d-speck: #3a2513;
+  --d-speck-size: .026em;
+  --d-specks: none;
+
+  --d-steam: #fff;
+  --d-steam-op: 0;
+
+  /* ---- the frame ---- */
+  font-size: var(--d-size);
+  position: relative;
+  display: block;
+  inline-size: 1em;
+  block-size: 1em;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 .03em .04em rgb(40 25 10 / .28));
+}
+
+.dish--lg { --d-size: clamp(7.5rem, 26vw, 15rem); }
+.dish--sm { --d-size: 4.4rem; filter: drop-shadow(0 .02em .03em rgb(40 25 10 / .3)); }
+
+.dish > * {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.dish__vessel  { z-index: 1; background: var(--d-vessel-bg);  clip-path: var(--d-vessel-shape); }
+.dish__base    { z-index: 2; background: var(--d-base-bg);    clip-path: var(--d-base-shape); }
+.dish__sauce   { z-index: 3; background: var(--d-sauce-bg);   clip-path: var(--d-sauce-shape);   transform: var(--d-sauce-tf); }
+.dish__accent  { z-index: 4; background: var(--d-accent-bg);  clip-path: var(--d-accent-shape);  transform: var(--d-accent-tf); }
+.dish__accent2 { z-index: 5; background: var(--d-accent2-bg); clip-path: var(--d-accent2-shape); transform: var(--d-accent2-tf); }
+
+/* Seeds, pepper, herbs, cocoa: one dot, multiplied by box-shadow.
+   Offsets are in `em`, so the scatter scales with the dish. */
+.dish__garnish {
+  z-index: 6;
+  inset: auto;
+  inline-size: var(--d-speck-size);
+  block-size: var(--d-speck-size);
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  border-radius: 50%;
+  background: var(--d-speck);
+  box-shadow: var(--d-specks);
+}
+
+/* ---- steam -------------------------------------------------
+   Held at opacity 0 until a dish is hovered, focused, chosen,
+   or explicitly marked hot. Twelve dishes idling with three
+   animated plumes each is a lot of compositing for no reason. */
+.dish__steam { z-index: 7; pointer-events: none; }
+
+.dish__steam i {
+  position: absolute;
+  inset-block-end: 56%;
+  inset-inline-start: 50%;
+  inline-size: .07em;
+  block-size: .3em;
+  border-radius: 50%;
+  background: linear-gradient(to top, transparent, var(--d-steam) 55%, transparent);
+  opacity: 0;
+  filter: blur(.015em);
+}
+.dish__steam i:nth-child(2) { inset-inline-start: 41%; }
+.dish__steam i:nth-child(3) { inset-inline-start: 59%; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .dish--hot .dish__steam i,
+  .dish:hover .dish__steam i,
+  .card__input:focus-visible + .card__label .dish__steam i,
+  .card__input:checked + .card__label .dish__steam i {
+    animation: dish-steam 3.4s var(--ease) infinite;
+  }
+  .dish__steam i:nth-child(2) { animation-delay: 1.1s; }
+  .dish__steam i:nth-child(3) { animation-delay: 2.2s; }
+}
+
+@keyframes dish-steam {
+  0%   { opacity: 0;   transform: translate(-50%, 0) scaleX(.6); }
+  22%  { opacity: .55; }
+  100% { opacity: 0;   transform: translate(-50%, -.55em) scaleX(1.7); }
+}
+
+/* Plating: a dish set down on the table. */
+@media (prefers-reduced-motion: no-preference) {
+  .dish--plating { animation: dish-plate var(--dur-3) var(--ease) both; }
+}
+@keyframes dish-plate {
+  from { opacity: 0; transform: translateY(-.18em) scale(.82) rotate(-6deg); }
+  to   { opacity: 1; transform: none; }
+}
+
+
+/* ============================================================
+   OUMA — Durban & the Cape
+   ============================================================ */
+
+/* Quarter loaf, hollowed, filled with curry. */
+.dish--bunny-chow {
+  --d-vessel: #d9a765;
+  --d-vessel-2: #efd0a1;
+  --d-vessel-shape: inset(24% 20% 14% 20% round .09em .09em .04em .04em);
+  --d-base: #5a3a1c;                       /* the hollowed crumb wall */
+  --d-base-2: #3a2410;
+  --d-base-shape: inset(26% 27% 46% 27% round .05em);
+  --d-sauce: #bd5522;                      /* mutton curry */
+  --d-sauce-2: #8c3411;
+  --d-sauce-shape: ellipse(21% 11% at 50% 34%);
+  --d-accent: #c69256;                     /* the bread lid, propped */
+  --d-accent-shape: inset(10% 34% 72% 36% round .04em);
+  --d-accent-tf: rotate(-9deg);
+  --d-accent2: #f0d5a8;                    /* flour-dusted crust ridge */
+  --d-accent2-shape: inset(23% 22% 71% 22% round .06em .06em 0 0);
+  --d-speck: #7c2f0d;
+  --d-specks:
+      -.06em -.13em 0 var(--d-speck), .05em -.16em 0 var(--d-speck),
+      .11em -.11em 0 var(--d-speck), -.13em -.1em 0 var(--d-speck),
+      .01em -.09em 0 #e8a33c;
+}
+
+/* Pap, chakalaka relish, and a coil of boerewors. */
+.dish--pap-chakalaka {
+  --d-vessel: #f6f1e6;
+  --d-vessel-2: #ffffff;
+  --d-vessel-shape: circle(48% at 50% 52%);
+  --d-base: #fdfaf1;                       /* stiff maize meal */
+  --d-base-2: #ddd2b8;
+  --d-base-shape: ellipse(21% 19% at 34% 52%);
+  --d-sauce: #d9631f;                      /* chakalaka */
+  --d-sauce-2: #a63c0c;
+  --d-sauce-shape: ellipse(18% 15% at 64% 62%);
+  --d-accent: #6d3316;                     /* wors, coiled */
+  --d-accent-bg:
+      radial-gradient(circle at 50% 50%,
+        transparent 0 46%, #7d3a18 47% 62%, #55240f 63% 68%, transparent 69%);
+  --d-accent-shape: ellipse(24% 22% at 58% 38%);
+  --d-speck: #2f6b32;                      /* green pepper in the relish */
+  --d-specks:
+      .1em .06em 0 var(--d-speck), .16em .11em 0 var(--d-speck),
+      .07em .14em 0 #e8b520, .14em .04em 0 #e8b520;
+}
+
+/* Curried mince under a set egg custard, bay leaves standing up. */
+.dish--bobotie {
+  --d-vessel: #e8e2d6;
+  --d-vessel-2: #ffffff;
+  --d-vessel-shape: inset(20% 8% 18% 8% round .07em);
+  --d-base: #f2d68a;                       /* custard lid */
+  --d-base-2: #d3ab4d;
+  --d-base-shape: inset(23% 11% 21% 11% round .05em);
+  --d-sauce: #b06a24;                      /* browned patches */
+  --d-sauce-2: transparent;
+  --d-sauce-bg:
+      radial-gradient(ellipse .14em .07em at 34% 44%, #b0682199 0 60%, transparent 61%),
+      radial-gradient(ellipse .11em .06em at 66% 62%, #a75e1c99 0 60%, transparent 61%);
+  --d-sauce-shape: inset(23% 11% 21% 11% round .05em);
+  --d-accent: #3f6b39;                     /* bay leaf */
+  --d-accent-shape: ellipse(3.5% 8% at 42% 44%);
+  --d-accent-tf: rotate(-24deg);
+  --d-accent2: #4a7a41;
+  --d-accent2-shape: ellipse(3.5% 8% at 58% 56%);
+  --d-accent2-tf: rotate(18deg);
+  --d-speck: #8a5a1f;
+  --d-specks: -.1em .04em 0 var(--d-speck), .12em -.06em 0 var(--d-speck);
+}
+
+/* Apricot sponge, cream poured on while it is still too hot. */
+.dish--malva {
+  --d-vessel: #e6ded0;
+  --d-vessel-2: #fffdf7;
+  --d-vessel-shape: inset(24% 12% 20% 12% round .08em);
+  --d-base: #b06a2b;                       /* sponge */
+  --d-base-2: #7d4315;
+  --d-base-shape: inset(27% 15% 23% 15% round .05em);
+  --d-sauce: #fffaf0;                      /* cream, soaking in */
+  --d-sauce-2: #f2e3c8;
+  --d-sauce-bg:
+      radial-gradient(ellipse 32% 14% at 50% 42%, var(--d-sauce) 0 58%, transparent 62%),
+      radial-gradient(ellipse 18% 9% at 36% 56%, var(--d-sauce-2) 0 60%, transparent 64%);
+  --d-sauce-shape: inset(27% 15% 23% 15% round .05em);
+  --d-accent: #f6d98a;                     /* custard jug pool */
+  --d-accent-shape: ellipse(11% 6% at 70% 60%);
+  --d-speck: #6d3a10;
+  --d-specks: -.14em .02em 0 var(--d-speck), .13em .07em 0 var(--d-speck);
+}
+
+
+/* ============================================================
+   TETA — the Levant & the islands
+   ============================================================ */
+
+/* Eggs poached in tomato, served in the pan. */
+.dish--shakshuka {
+  --d-vessel: #3b3936;                     /* cast iron */
+  --d-vessel-2: #605c56;
+  --d-vessel-shape: circle(45% at 48% 52%);
+  --d-base: #cf3f24;                       /* tomato and pepper */
+  --d-base-2: #93230f;
+  --d-base-shape: circle(38% at 48% 52%);
+  --d-sauce: #f5c033;                      /* two yolks, one layer */
+  --d-sauce-bg:
+      radial-gradient(circle .085em at 39% 45%, #ffd84a 0 68%, #e39b16 69% 86%, transparent 87%),
+      radial-gradient(circle .075em at 58% 61%, #ffd84a 0 68%, #e39b16 69% 86%, transparent 87%);
+  --d-sauce-shape: circle(40% at 48% 52%);
+  --d-accent: #55524d;                     /* pan handle */
+  --d-accent-shape: inset(46% 0% 48% 88% round .03em);
+  --d-accent2: #ffffff;                    /* set whites around the yolks */
+  --d-accent2-bg:
+      radial-gradient(circle .13em at 39% 45%, #fff8ea88 0 74%, transparent 75%),
+      radial-gradient(circle .12em at 58% 61%, #fff8ea88 0 74%, transparent 75%);
+  --d-accent2-shape: circle(38% at 48% 52%);
+  --d-speck: #2f6b32;                      /* coriander */
+  --d-specks:
+      -.14em -.05em 0 var(--d-speck), .12em -.12em 0 var(--d-speck),
+      .05em .16em 0 var(--d-speck), -.08em .14em 0 var(--d-speck),
+      .17em .05em 0 #1f4d22;
+  --d-steam: #ffe9c9;
+}
+
+/* Aubergine and lamb under a browned béchamel lid. */
+.dish--moussaka {
+  --d-vessel: #dcd4c4;
+  --d-vessel-2: #f6f1e6;
+  --d-vessel-shape: inset(19% 9% 17% 9% round .07em);
+  --d-base: #f0e2c0;                       /* béchamel */
+  --d-base-2: #cdb27c;
+  --d-base-shape: inset(22% 12% 20% 12% round .05em);
+  --d-sauce: #a86524;                      /* blistered top */
+  --d-sauce-bg:
+      radial-gradient(ellipse .1em .05em at 30% 38%, #a8652499 0 62%, transparent 63%),
+      radial-gradient(ellipse .13em .06em at 62% 52%, #94531c99 0 62%, transparent 63%),
+      radial-gradient(ellipse .08em .04em at 46% 66%, #b57330aa 0 62%, transparent 63%);
+  --d-sauce-shape: inset(22% 12% 20% 12% round .05em);
+  --d-accent: #6b3a1b;                     /* the cut face: lamb layer */
+  --d-accent-shape: inset(66% 12% 20% 12%);
+  --d-accent2: #4d3a22;                    /* aubergine layer below it */
+  --d-accent2-shape: inset(73% 12% 20% 12%);
+  --d-speck: #7a4a15;
+  --d-specks: -.08em -.1em 0 var(--d-speck), .1em -.14em 0 var(--d-speck);
+}
+
+/* Hummus swirled wide, oil in the well, halloumi off the griddle. */
+.dish--mezze {
+  --d-vessel: #f2ece0;
+  --d-vessel-2: #ffffff;
+  --d-vessel-shape: circle(48% at 50% 52%);
+  --d-base: #e6d5ab;                       /* hummus — a conic swirl */
+  --d-base-bg:
+      conic-gradient(from 210deg at 50% 52%,
+        #e9dab4, #d9c493, #efe1bd, #d3bc88, #e9dab4);
+  --d-base-shape: circle(36% at 50% 52%);
+  --d-sauce: #9c8f4f;                      /* the well of olive oil */
+  --d-sauce-2: #c9a83a;
+  --d-sauce-shape: ellipse(12% 8% at 47% 50%);
+  --d-accent: #f0d69b;                     /* halloumi, grill-marked */
+  --d-accent-bg:
+      repeating-linear-gradient(62deg,
+        #f2d99f 0 .035em, #f2d99f .035em .05em, #a86a2c .05em .068em);
+  --d-accent-shape: inset(58% 30% 24% 42% round .02em);
+  --d-accent-tf: rotate(-12deg);
+  --d-accent2: #efd291;
+  --d-accent2-bg:
+      repeating-linear-gradient(62deg,
+        #f2d99f 0 .035em, #f2d99f .035em .05em, #b0722f .05em .068em);
+  --d-accent2-shape: inset(62% 42% 20% 30% round .02em);
+  --d-accent2-tf: rotate(7deg);
+  --d-speck: #c0421d;                      /* paprika */
+  --d-specks:
+      -.15em -.09em 0 var(--d-speck), .07em -.15em 0 var(--d-speck),
+      .16em -.02em 0 var(--d-speck), -.05em -.17em 0 #2f6b32;
+}
+
+/* Forty layers, pistachio, cut into diamonds. */
+.dish--baklava {
+  --d-vessel: #a9855c;                     /* wooden board */
+  --d-vessel-2: #c9a575;
+  --d-vessel-shape: inset(26% 10% 22% 10% round .05em);
+  --d-base: #e5b463;                       /* syrup-soaked pastry */
+  --d-base-2: #c58b32;
+  --d-base-shape: inset(29% 13% 25% 13% round .03em);
+  --d-sauce: transparent;                  /* the diamond lattice */
+  --d-sauce-bg:
+      repeating-linear-gradient(48deg,  transparent 0 .085em, #8f5c1d66 .085em .1em),
+      repeating-linear-gradient(-48deg, transparent 0 .085em, #8f5c1d66 .085em .1em);
+  --d-sauce-shape: inset(29% 13% 25% 13% round .03em);
+  --d-accent: transparent;                 /* syrup sheen */
+  --d-accent-bg: linear-gradient(122deg, #ffffff00 32%, #ffffff5c 46%, #ffffff00 58%);
+  --d-accent-shape: inset(29% 13% 25% 13% round .03em);
+  --d-speck: #4f7a2b;                      /* pistachio */
+  --d-specks:
+      -.16em -.02em 0 var(--d-speck), -.03em -.06em 0 var(--d-speck),
+      .11em .02em 0 var(--d-speck), .18em -.04em 0 var(--d-speck),
+      -.09em .05em 0 #6b9b3c, .05em .07em 0 #6b9b3c;
+}
+
+
+/* ============================================================
+   NONNA — Naples
+   ============================================================ */
+
+/* Pasta, pecorino, pepper, pasta water.
+   The hardest of the twelve: a plain pale dish in a plain pale bowl, so
+   all of the reading has to come from the twirl and the pepper. The nest
+   is an *elliptical* repeating gradient, off-centre — concentric circles
+   look like a target, an off-centre ellipse looks like something wound
+   onto a fork and dropped. */
+.dish--cacio-e-pepe {
+  --d-vessel: #f1ece0;                     /* wide shallow bowl, with a rim */
+  --d-vessel-2: #ffffff;
+  --d-vessel-bg:
+      radial-gradient(circle at 44% 40%, #fffdf8 0 26%, transparent 60%),
+      radial-gradient(circle at 50% 52%,
+        #e4d9c2 0 40%,                     /* the well, in shadow under the pasta */
+        #f5efe1 41% 70%,
+        #fdfaf2 71% 83%,                   /* rim, catching the light */
+        #d5c8ad 84% 100%);                 /* outer edge */
+  --d-vessel-shape: circle(47% at 50% 52%);
+
+  --d-base: #e4c97f;                       /* the nest, wound and dropped */
+  /* Soft stops, not hard ones. Hard bands read as rope; a gradient
+     across each coil gives it a round side and reads as a strand. */
+  --d-base-bg:
+      repeating-radial-gradient(ellipse .36em .27em at 45% 43%,
+        #a88a41 0,                         /* the shadow down between coils */
+        #fbeec4 .017em,                    /* strand catching the light */
+        #e7c977 .034em,                    /* strand turning away */
+        #a88a41 .052em);
+  --d-base-shape: ellipse(33% 28% at 50% 52%);
+
+  --d-sauce: transparent;                  /* emulsified pecorino, and volume */
+  --d-sauce-bg:
+      radial-gradient(ellipse 52% 46% at 36% 32%, #fffbe6cc 0 38%, transparent 74%),
+      radial-gradient(ellipse 88% 78% at 64% 72%, #7d5f2455 0 46%, transparent 82%),
+      radial-gradient(ellipse 96% 88% at 50% 62%, transparent 0 62%, #6d522088 92%);
+  --d-sauce-shape: ellipse(33% 28% at 50% 52%);
+
+  /* A second winding, from a different centre. Two sets of concentric
+     coils interfering is what stops the nest reading as a dartboard. */
+  --d-accent: transparent;
+  --d-accent-bg:
+      repeating-radial-gradient(ellipse .31em .23em at 60% 62%,
+        transparent 0, transparent .022em, #8a6d2e40 .036em, transparent .05em);
+  --d-accent-shape: ellipse(33% 28% at 50% 52%);
+
+  --d-accent2: transparent;                /* grated pecorino, not yet stirred in */
+  --d-accent2-bg:
+      radial-gradient(circle .009em at 34% 57%, #fffdf5 0 70%, transparent 71%),
+      radial-gradient(circle .008em at 61% 43%, #fffdf5 0 70%, transparent 71%),
+      radial-gradient(circle .01em at 51% 63%, #fffdf5 0 70%, transparent 71%),
+      radial-gradient(circle .007em at 43% 36%, #fffdf5 0 70%, transparent 71%);
+  --d-accent2-shape: ellipse(33% 28% at 50% 52%);
+
+  /* Coarse black pepper, and plenty of it. The fourth box-shadow value is
+     spread, which is how one dot becomes a grind of several sizes. */
+  --d-speck: #1f1610;
+  --d-speck-size: .012em;
+  --d-specks:
+      -.15em -.07em 0 .003em var(--d-speck), -.03em -.13em 0 0 var(--d-speck),
+       .09em -.10em 0 .004em var(--d-speck),  .16em  .00em 0 -.002em var(--d-speck),
+       .06em  .11em 0 .002em var(--d-speck), -.11em  .09em 0 0 var(--d-speck),
+       .00em  .02em 0 .004em var(--d-speck), -.19em  .04em 0 -.002em var(--d-speck),
+       .13em  .08em 0 0 var(--d-speck),      -.07em -.02em 0 -.001em var(--d-speck),
+       .19em -.07em 0 .001em #3d2c1e,       -.16em  .13em 0 0 #3d2c1e,
+       .04em -.05em 0 .003em var(--d-speck), .11em  .04em 0 -.001em var(--d-speck),
+      -.09em -.11em 0 -.002em var(--d-speck), .02em  .15em 0 .001em var(--d-speck);
+
+  --d-steam: #fff6e2;
+}
+
+/* Ragù since Saturday morning, béchamel, and the corner piece. */
+.dish--lasagne {
+  --d-vessel: #e2d9c8;
+  --d-vessel-2: #fbf6ec;
+  --d-vessel-shape: inset(18% 9% 16% 9% round .07em);
+  --d-base: #f2e3bd;                       /* browned béchamel top */
+  --d-base-2: #cba95f;
+  --d-base-shape: inset(21% 12% 19% 12% round .04em);
+  --d-sauce: #a23a1c;                      /* the cut face, layered */
+  --d-sauce-bg:
+      repeating-linear-gradient(180deg,
+        #ab3f1e 0 .035em, #f0dfb4 .035em .055em, #8e2f14 .055em .085em, #e8d5a6 .085em .1em);
+  --d-sauce-shape: inset(60% 12% 19% 12%);
+  --d-accent: #8f4a1a;                     /* the crisped corner */
+  --d-accent-bg: radial-gradient(ellipse .14em .07em at 22% 34%, #8f4a1acc 0 62%, transparent 64%);
+  --d-accent-shape: inset(21% 12% 19% 12% round .04em);
+  --d-accent2: #2f6b32;                    /* basil, thrown on late */
+  --d-accent2-shape: ellipse(4% 3% at 66% 36%);
+  --d-accent2-tf: rotate(-28deg);
+  --d-speck: #7c3a12;
+  --d-specks: -.05em -.12em 0 var(--d-speck), .11em -.07em 0 var(--d-speck);
+  --d-steam: #ffe6cf;
+}
+
+/* Saffron, butter, and twenty minutes of not walking away. */
+.dish--risotto {
+  --d-vessel: #f6f1e6;
+  --d-vessel-2: #ffffff;
+  --d-vessel-shape: circle(48% at 50% 52%);
+  --d-base: #f0bd3c;                       /* saffron rice, spread loose */
+  --d-base-2: #cf8f16;
+  --d-base-shape: ellipse(34% 27% at 50% 53%);
+  --d-sauce: #ffe08a;                      /* butter sheen */
+  --d-sauce-2: transparent;
+  --d-sauce-bg: radial-gradient(ellipse 22% 15% at 43% 44%, #ffe9a8bb 0 55%, transparent 62%);
+  --d-sauce-shape: ellipse(34% 27% at 50% 53%);
+  --d-accent: transparent;                 /* grains catching the light */
+  --d-accent-bg:
+      repeating-radial-gradient(circle at 46% 48%,
+        #ffffff22 0 .014em, transparent .014em .03em);
+  --d-accent-shape: ellipse(34% 27% at 50% 53%);
+  --d-speck: #f8f2e0;                      /* parmesan */
+  --d-speck-size: .02em;
+  --d-specks:
+      -.13em -.08em 0 var(--d-speck), .1em -.11em 0 var(--d-speck),
+      .15em .04em 0 var(--d-speck), -.06em .13em 0 var(--d-speck),
+      .02em -.02em 0 #6b4a12;
+  --d-steam: #fff3d8;
+}
+
+/* Soaked exactly as long as they should be. Cocoa last. */
+.dish--tiramisu {
+  --d-vessel: #efe9dd;
+  --d-vessel-2: #ffffff;
+  --d-vessel-shape: inset(26% 18% 20% 18% round .06em);
+  --d-base: #6b4426;                       /* cocoa, matte */
+  --d-base-2: #4a2d17;
+  --d-base-bg:
+      radial-gradient(circle at 38% 34%, #74492a, #482c16 78%);
+  --d-base-shape: inset(29% 21% 30% 21% round .03em);
+  --d-sauce: #f6ecd6;                      /* mascarpone, at the cut edge */
+  --d-sauce-2: #e0cfa9;
+  --d-sauce-bg:
+      repeating-linear-gradient(180deg,
+        #f7eeda 0 .04em, #c9a877 .04em .052em, #f2e6cd .052em .086em, #b8946a .086em .098em);
+  --d-sauce-shape: inset(70% 21% 20% 21%);
+  --d-accent: transparent;                 /* dusting settling unevenly */
+  --d-accent-bg:
+      radial-gradient(ellipse 30% 22% at 62% 40%, #00000033 0 60%, transparent 64%),
+      radial-gradient(ellipse 20% 16% at 34% 56%, #ffffff1a 0 60%, transparent 64%);
+  --d-accent-shape: inset(29% 21% 30% 21% round .03em);
+  --d-speck: #2e1b0d;
+  --d-speck-size: .018em;
+  --d-specks:
+      -.1em -.06em 0 var(--d-speck), .06em -.09em 0 var(--d-speck),
+      .12em -.02em 0 var(--d-speck), -.04em .0em 0 var(--d-speck),
+      .0em -.13em 0 #8a6038;
+}

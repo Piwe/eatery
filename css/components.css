@@ -1,0 +1,190 @@
+/* ============================================================
+   Components: buttons, chips, cards, tags, plate rows.
+   ============================================================ */
+
+/* ---- buttons ---- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: .7em 1.3em;
+  border: 1px solid var(--line-firm);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--dur-1) var(--ease),
+              box-shadow var(--dur-1) var(--ease),
+              background-color var(--dur-1) var(--ease);
+}
+.button:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
+.button:active { transform: translateY(0); }
+
+.button--primary {
+  background: var(--accent);
+  border-color: transparent;
+  color: var(--accent-ink);
+}
+
+.button[disabled] { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* ---- filter chips ---- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-block-start: var(--sp-3);
+}
+
+.chip {
+  padding: .45em 1em;
+  border: 1px solid var(--line-firm);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: var(--step--1);
+  font-weight: 600;
+  cursor: pointer;
+  /* Named properties, never `all`: `transition: all` also animates
+     outline-width, which fades the focus ring in from 0 and hands
+     keyboard users a ring that arrives late and in the wrong colour. */
+  transition: background-color var(--dur-1) var(--ease),
+              border-color var(--dur-1) var(--ease),
+              color var(--dur-1) var(--ease);
+}
+.chip:hover { border-color: var(--accent); color: var(--ink); }
+.chip[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: transparent;
+  color: var(--accent-ink);
+}
+.chip--ouma  { --accent: var(--ouma); }
+.chip--teta  { --accent: var(--teta); }
+.chip--nonna { --accent: var(--nonna); }
+
+.filters__status {
+  margin-block-start: var(--sp-2);
+  color: var(--ink-soft);
+  font-size: var(--step--1);
+}
+
+/* ---- menu card -------------------------------------------
+   The checkbox is the real control. The label is the large
+   click target. The description sits outside the label so the
+   accessible name stays short, and is tied on with
+   aria-describedby instead.                                  */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  transition: border-color var(--dur-2) var(--ease),
+              box-shadow var(--dur-2) var(--ease),
+              transform var(--dur-2) var(--ease);
+}
+.card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+
+.card__input {
+  position: absolute;
+  inset-block-start: var(--sp-3);
+  inset-inline-end: var(--sp-3);
+  inline-size: 1.4rem;
+  block-size: 1.4rem;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.card__label {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "art name price";
+  align-items: center;
+  gap: var(--sp-3);
+  cursor: pointer;
+}
+/* Stretch the hit area over the whole card without swallowing
+   the checkbox itself (which sits above it on z-index). */
+.card__label::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.card__art  { grid-area: art; display: grid; place-items: center; }
+.card__name { grid-area: name; font-family: var(--font-display); font-size: var(--step-1); }
+.card__price {
+  grid-area: price;
+  align-self: start;
+  margin-inline-end: 2.2rem;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.card__desc {
+  margin-block-start: var(--sp-2);
+  color: var(--ink-soft);
+  font-size: var(--step--1);
+}
+
+.card:has(.card__input:checked) {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent), var(--shadow-lift);
+}
+.card:has(.card__input:checked) .card__name { color: var(--accent); }
+
+/* The whole card lifts when the control inside it has focus. */
+.card:has(.card__input:focus-visible) { box-shadow: var(--shadow-lift); }
+
+.card[hidden] { display: none; }
+
+/* ---- tags ---- */
+.tags { display: inline-flex; flex-wrap: wrap; gap: var(--sp-1); margin-inline-start: var(--sp-1); }
+.tag {
+  padding: .1em .6em;
+  border: 1px solid var(--line-firm);
+  border-radius: 999px;
+  font-size: .85em;
+  white-space: nowrap;
+}
+
+/* ---- plate rows ---- */
+.plate__list { display: flex; flex-direction: column; gap: var(--sp-1); }
+
+.plate__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-2);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  font-size: var(--step--1);
+}
+.plate__row-name { flex: 1; }
+.plate__row-price { font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+
+.plate__row-remove {
+  display: grid;
+  place-items: center;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  padding: 0;
+  border: 1px solid var(--line-firm);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+.plate__row-remove:hover { border-color: var(--accent); color: var(--accent); }
