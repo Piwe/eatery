@@ -1,0 +1,76 @@
+/* ============================================================
+   Reset, typography, and the accessibility floor.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: var(--step-0)/1.6 var(--font-body);
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.1; margin: 0; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; }
+img, canvas, svg { max-width: 100%; }
+
+a { color: inherit; text-underline-offset: .2em; }
+
+/* --- focus: one visible ring everywhere, never removed --- */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+.skip-link {
+  position: absolute;
+  left: var(--sp-3);
+  top: -4rem;
+  z-index: 50;
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 0 0 var(--radius) var(--radius);
+  text-decoration: none;
+  font-weight: 600;
+  transition: top var(--dur-1) var(--ease);
+}
+.skip-link:focus { top: 0; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- honour the reduced-motion setting for every decorative effect --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* --- respect a forced-colours (high contrast) environment --- */
+@media (forced-colors: active) {
+  .dish, .plate__canvas { display: none; }
+  .card { border: 1px solid CanvasText; }
+}

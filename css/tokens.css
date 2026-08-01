@@ -1,0 +1,88 @@
+/* ============================================================
+   Design tokens.
+   Chrome colours respond to the viewer's colour scheme.
+   Food colours never do — a tomato is the same colour at night.
+   ============================================================ */
+
+:root {
+  /* --- kitchen accents ---
+     Each one clears 4.5:1 against every light surface token below,
+     so it can be used for headings and legends and not just for
+     decoration. The dark-scheme values further down do the same
+     against the dark surfaces. */
+  --ouma:   #b5451e;   /* Durban curry red   — 5.3:1 on --surface */
+  --teta:   #37755b;   /* olive / sea green  — 5.2:1 on --surface */
+  --nonna:  #8d3b4a;   /* Neapolitan wine    — 7.1:1 on --surface */
+
+  /* --- surface + ink (light) --- */
+  --bg:        #f7f1e6;
+  --bg-sunk:   #efe6d6;
+  --surface:   #fffaf2;
+  --surface-2: #f3e9da;
+  --ink:       #2a1d14;
+  --ink-soft:  #5c4936;
+  --line:      #ddcdb5;
+  --line-firm: #c3ae90;
+  --accent:    var(--ouma);
+  --accent-ink:#ffffff;
+
+  /* --- type --- */
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --step--1: clamp(.82rem, .79rem + .13vw, .89rem);
+  --step-0:  clamp(1rem, .96rem + .2vw, 1.12rem);
+  --step-1:  clamp(1.2rem, 1.12rem + .4vw, 1.5rem);
+  --step-2:  clamp(1.5rem, 1.34rem + .8vw, 2.1rem);
+  --step-3:  clamp(2rem, 1.66rem + 1.7vw, 3.3rem);
+
+  /* --- space --- */
+  --sp-1: .375rem;
+  --sp-2: .75rem;
+  --sp-3: 1.25rem;
+  --sp-4: 2rem;
+  --sp-5: 3.25rem;
+  --sp-6: 5rem;
+
+  /* --- shape + depth --- */
+  --radius:    .75rem;
+  --radius-lg: 1.5rem;
+  --shadow:      0 1px 2px rgb(60 40 20 / .06), 0 4px 14px rgb(60 40 20 / .07);
+  --shadow-lift: 0 2px 6px rgb(60 40 20 / .09), 0 14px 32px rgb(60 40 20 / .13);
+
+  /* --- motion --- */
+  --ease: cubic-bezier(.2, .7, .3, 1);
+  --dur-1: 140ms;
+  --dur-2: 280ms;
+  --dur-3: 620ms;
+
+  --wrap: 78rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:        #191410;
+    --bg-sunk:   #120e0b;
+    --surface:   #241c16;
+    --surface-2: #2e2419;
+    --ink:       #f4e9db;
+    --ink-soft:  #c2ae97;
+    --line:      #3c3025;
+    --line-firm: #55442f;
+    --ouma:      #e2734a;   /* 4.9:1 on the darkest surface token */
+    --teta:      #6fae8e;   /* 5.9:1 */
+    --nonna:     #cf7286;   /* 4.6:1 */
+    --accent-ink:#241c16;
+    --shadow:      0 1px 2px rgb(0 0 0 / .4), 0 4px 14px rgb(0 0 0 / .35);
+    --shadow-lift: 0 2px 6px rgb(0 0 0 / .45), 0 14px 32px rgb(0 0 0 / .5);
+  }
+}
+
+/* The viewer's own toggle, if one is ever added, must beat the media query. */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"]  { color-scheme: dark; }
+
+/* Kitchen scoping: any element marked with a kitchen re-points --accent. */
+[data-kitchen="ouma"]  { --accent: var(--ouma); }
+[data-kitchen="teta"]  { --accent: var(--teta); }
+[data-kitchen="nonna"] { --accent: var(--nonna); }
